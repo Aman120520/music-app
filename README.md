@@ -1,79 +1,138 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+## LittleBibleStories — React Native Music & Learning App
 
-# Getting Started
+Cross‑platform React Native application combining audio playback, quizzes, and a simple shop-like experience with drawer navigation, internationalization, and Redux state management.
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+### Highlights
+- **Audio playback**: `react-native-track-player`, `react-native-sound`, transport controls, progress, repeat and favorite UI.
+- **Learning/Quiz flows**: Quiz screens, results, and progress with Redux.
+- **Navigation**: Drawer + stack navigation via `@react-navigation`.
+- **i18n**: `i18next` + `react-i18next` with language resources under `App/Resources/Languages`.
+- **Media**: Video playback via `react-native-video` and `react-native-video-player`.
+- **Theming & assets**: Centralized colors, fonts, images, and scalable sizing helpers.
+- **State**: Redux Toolkit and thunk for async flows.
 
-## Step 1: Start the Metro Server
+---
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+## Tech Stack
+- React 18, React Native 0.75
+- Navigation: `@react-navigation/native`, `@react-navigation/drawer`, `@react-navigation/native-stack`
+- State: `@reduxjs/toolkit`, `react-redux`, `redux-thunk`
+- Audio/Media: `react-native-track-player`, `react-native-sound`, `react-native-video`
+- UI/UX: `react-native-gesture-handler`, `react-native-reanimated`, `react-native-linear-gradient`, `react-native-progress`
+- Utilities: `axios`, `moment`, `i18next`
 
-To start Metro, run the following command from the _root_ of your React Native project:
+---
 
+## Project Structure
+
+```
+App/
+  Actions/           # Action creators for auth, categories, quiz, settings, soundtrack
+  Components/        # Reusable UI components (common + quiz)
+  Helpers/           # Dialog, social login hooks, language effect, utilities
+  Navigators/        # Drawer/stack navigators and navigation helpers
+  Network/           # API base + constants
+  Reducer/           # Redux reducers and root reducer
+  Resources/         # Colors, fonts, images, strings, responsive helpers
+  Screens/           # Feature screens: Auth, Home, SideMenu, Splash
+  Store/             # Redux store setup
+
+android/             # Android native project
+ios/                 # iOS native project (Pods, workspace, assets)
+```
+
+Key entry points:
+- `index.js` — app bootstrap
+- `App.js` — top-level component
+- `App/Navigators/AppNavigator.js` — root navigation
+- `App/Store/Store.js` — Redux store
+
+---
+
+## Getting Started
+
+1) Environment
+- Follow the official React Native environment setup: `https://reactnative.dev/docs/environment-setup` (React Native CLI, not Expo)
+- Node >= 18 (see `package.json#engines`)
+
+2) Install dependencies
 ```bash
-# using npm
-npm start
+npm install
+# or
+yarn
+```
 
-# OR using Yarn
+3) iOS setup
+```bash
+cd ios && pod install && cd ..
+```
+
+4) Start Metro
+```bash
+npm start
+# or
 yarn start
 ```
 
-## Step 2: Start your Application
-
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
+5) Run the app
 ```bash
-# using npm
+# Android
 npm run android
 
-# OR using Yarn
-yarn android
-```
-
-### For iOS
-
-```bash
-# using npm
+# iOS (simulator)
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+---
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+## Scripts
+- `start` — start Metro bundler
+- `android` — build and run on Android emulator/device
+- `ios` — build and run on iOS simulator
+- `lint` — run ESLint
+- `test` — run Jest tests
 
-## Step 3: Modifying your App
+---
 
-Now that you have successfully run the app, let's modify it.
+## Configuration
+- API configuration lives under `App/Network/Constant.js` and `App/Network/Api.js`. Point base URLs, headers, and endpoints here.
+- Internationalization resources are under `App/Resources/Languages`. Use `App/Helpers/UseLanguageEffect.js` to react to language changes.
+- Colors, fonts, images, and typography scale are defined in `App/Resources/*` for consistent styling.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+---
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+## iOS Notes
+- Open `ios/LittleBibleStories.xcworkspace` in Xcode for native changes.
+- After adding/removing native dependencies, run `pod install` again.
+- Permissions are declared in `ios/LittleBibleStories/Info.plist` and `PrivacyInfo.xcprivacy` (for media/audio usage).
 
-## Congratulations! :tada:
+## Android Notes
+- Minimum Gradle/AGP versions are configured in `android/build.gradle` and `android/gradle.properties`.
+- App module config is in `android/app/build.gradle`.
+- Assets (fonts/images) are linked via `react-native.config.js` and platform asset manifests.
 
-You've successfully run and modified your React Native App. :partying_face:
+---
 
-### Now what?
+## Testing & Linting
+```bash
+npm test
+npm run lint
+```
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+---
 
-# Troubleshooting
+## Troubleshooting
+- Make sure Android SDKs and iOS command line tools are installed and up to date.
+- Clear caches if builds act up:
+```bash
+watchman watch-del-all || true
+rm -rf node_modules && npm install
+cd ios && pod deintegrate && pod install && cd ..
+rm -rf android/app/build
+```
+- For more, see the React Native Troubleshooting docs: `https://reactnative.dev/docs/troubleshooting`.
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+---
 
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## License
+This project is private and provided as-is for personal development and learning purposes.

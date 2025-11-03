@@ -1,0 +1,85 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node.js
+node_modules/
+
+# Caches
+.cache/
+metro-cache/
+.tmp/
+
+# Output
+build/
+dist/
+coverage/
+
+# React Native bundles and maps
+index.android.bundle
+index.ios.bundle
+*.jsbundle
+*.map
+
+# iOS
+ios/build/
+ios/DerivedData/
+ios/Pods/
+ios/*.xcodeproj/xcuserdata/
+ios/*.xcodeproj/project.xcworkspace/xcuserdata/
+ios/*.xcworkspace/xcuserdata/
+# Xcode user data
+xcuserdata/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+
+# Android
+android/.gradle/
+android/.idea/
+android/local.properties
+android/build/
+android/app/build/
+android/app/*.keystore
+android/app/*.jks
+
+# Platform-specific caches
+.expo/
+.expo-shared/
+
+# IDE/editor
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Env files
+.env
+.env.*
+
+# Jest
+jest-cache/
+jest-coverage/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# Misc project specifics
+ios/assets/node_modules/
+
+
